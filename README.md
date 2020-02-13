@@ -1,5 +1,5 @@
-# ota
-This repository contains all released firmware versions for the badges we support
+# OTA update service
+This repository contains all released firmware versions for the badges we support. It is published as the webroot of https://ota.badge.team
 
 # Maintainers
 
