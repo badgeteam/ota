@@ -1,10 +1,119 @@
-<pre>
-This is the over-the-air update server for badge.team badges.
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>BADGE.TEAM OTA SERVER</title>
+<style>
+html, body {
+	background-color: #FFFFFF;
+	color: #000000;
+	font-family: Open Sans, Arial, Helvetica, sans-serif;
+	text-align: center;
+}
 
-Currently firmware for the following badges is available:
- - SHA2017
- - HackerHotel 2019
- - Troopers 2019
- - Disobey 2019
- - Disobey 2020
- - CampZone 2019
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.container a {
+	color: #000000;
+	text-decoration: none;
+}
+
+.container a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+.firmware {
+	margin-left:auto; 
+	margin-right:auto;
+	border-collapse: collapse;
+	
+}
+.firmware td, .firmware th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+.firmware th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #E8480C;
+  color: white;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+	<img src="micropython.jpg" width="150px" /><br />
+	<h1>BADGE.TEAM Over-The-Air update service</h1>
+	<table class="firmware">
+		<tr>
+			<th>Badge</th>
+			<th>Firmware<br /><small>release</small></th>
+			<th>Firmware<br /><small>development</small></th>
+			<th>Bootloader</th>
+			<th>Partition&nbsp;table</th>
+		</tr>
+		<tr>
+			<td>SHA2017</td>
+			<td><a href="sha2017.bin">26-02-2020&nbsp;r1</a></td>
+			<td><i>Not&nbsp;available</i></td>
+			<td><a href="bootloader/esp32_platform_bl_idf3_2.bin">IDF&nbsp;v3.2</a></td>
+			<td><a href="partitions/sha2017_16MB.bin">16MB</a></td>
+		</tr>
+		<tr>
+			<td>HackerHotel&nbsp;2019</td>
+			<td><a href="hackerhotel2019.bin">26-02-2020&nbsp;r1</a></td>
+			<td><i>Not&nbsp;available</i></td>
+			<td><a href="bootloader/esp32_platform_bl_idf3_2.bin">IDF&nbsp;v3.2</a></td>
+			<td><a href="partitions/hackerhotel2019_16MB.bin">16MB</a></td>
+		</tr>
+		<tr>
+			<td>Disobey&nbsp;2019</td>
+			<td><i>Not&nbsp;available</i></td>
+			<td><a href="disobey2019.bin">Pre-release</a></td>
+			<td><a href="bootloader/esp32_platform_bl_idf3_2.bin">IDF&nbsp;v3.2</a></td>
+			<td><a href="partitions/disobey2019_16MB.bin">16MB</a></td>
+		</tr>
+		<tr>
+			<td>Troopers&nbsp;2019</td>
+			<td><a href="troopers2019.bin">03-01-2020 r1</a></td>
+			<td><i>Not&nbsp;available</i></td>
+			<td><a href="bootloader/esp32_platform_bl_idf3_2.bin">IDF&nbsp;v3.2</a></td>
+			<td><a href="partitions/generic_4MB.bin">4MB</a></td>
+		</tr>
+		<tr>
+			<td>CampZone&nbsp;2019</td>
+			<td><a href="campzone2019.bin">23-02-2020&nbsp;r25</a></td>
+			<td><i>Not&nbsp;available</i></td>
+			<td><a href="bootloader/esp32_platform_bl_idf3_2.bin">IDF&nbsp;v3.2</a></td>
+			<td><i>Not&nbsp;available</i></td>
+		</tr>
+		<tr>
+			<td>Disobey&nbsp;2020</td>
+			<td><a href="disobey2020.bin">17-02-2020</a></td>
+			<td><i>Not&nbsp;available</i></td>
+			<td><a href="bootloader/esp32_platform_bl_idf3_2.bin">IDF&nbsp;v3.2</a></td>
+			<td><i>Not&nbsp;available</i></td>
+		</tr>
+		<tr>
+			<td>CampZone&nbsp;2020</td>
+			<td><a href="campzone2020.bin">08-07-2020 r1</a></td>
+			<td><i>Not&nbsp;available</i></td>
+			<td><a href="bootloader/esp32_platform_bl_idf3_2.bin">IDF&nbsp;v3.2</a></td>
+			<td><i>Not&nbsp;available</i></td>
+		</tr>
+	</table>
+	<br /><br />
+</div>
+</body>
+</html>
