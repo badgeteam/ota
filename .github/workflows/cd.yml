@@ -1,0 +1,33 @@
+name: Deploy to server
+
+on:
+  push:
+    branches: [master]
+
+  pull_request:
+    branches: [master]
+    types: [merged]
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    environment: 'Badge.team OTA'
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+
+      # Fix timestamps for differential update
+      - name: Restore file timestamps
+        uses: chetan/git-restore-mtime-action@v2
+
+      - name: Upload via SFTP
+        uses: wangyucode/sftp-upload-action@v2.0.2
+        with:
+          host: ${{ vars.SFTP_HOST }}
+          port: ${{ vars.SFTP_PORT }}
+          username: ${{ vars.SFTP_USER }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          localDir: '.'
+          remoteDir: ${{ vars.SFTP_WEBROOT }}
+          exclude: '.git,.git*,./firmware,README.md'
+          removeExtraFilesOnServer: true
