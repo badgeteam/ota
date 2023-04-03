@@ -20,14 +20,12 @@ jobs:
       - name: Restore file timestamps
         uses: chetan/git-restore-mtime-action@v2
 
-      - name: Upload via SFTP
-        uses: wangyucode/sftp-upload-action@v2.0.2
+      - name: Upload with Rsync
+        uses: SamKirkland/web-deploy@v1
         with:
-          host: ${{ vars.SFTP_HOST }}
-          port: ${{ vars.SFTP_PORT }}
-          username: ${{ vars.SFTP_USER }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-          localDir: '.'
-          remoteDir: ${{ vars.SFTP_WEBROOT }}
-          exclude: '.git,.git*,./firmware,README.md'
-          removeExtraFilesOnServer: true
+          source-path: '.'
+          target-server: ${{ vars.HOST }}
+          ssh-port:      ${{ vars.SSH_PORT }}
+          remote-user:   ${{ vars.SSH_USER }}
+          private-ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          destination-path: ${{ vars.WEBROOT }}
