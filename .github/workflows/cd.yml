@@ -4,10 +4,6 @@ on:
   push:
     branches: [master]
 
-  pull_request:
-    branches: [master]
-    types: [merged]
-
 jobs:
   upload:
     runs-on: ubuntu-latest
@@ -20,6 +16,9 @@ jobs:
       - name: Restore file timestamps
         uses: chetan/git-restore-mtime-action@v2
 
+      - name: Generate new index.html
+        run: ./make_index.sh
+
       - name: Upload with Rsync
         uses: SamKirkland/web-deploy@v1
         with:
@@ -29,3 +28,10 @@ jobs:
           remote-user:   ${{ vars.SSH_USER }}
           private-ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
           destination-path: ${{ vars.WEBROOT }}
+          rsync-options: >
+            --archive --verbose --compress
+            --human-readable --progress
+            --delete-after
+            --exclude=.git* --exclude=.git/ --exclude=.gitignore
+            --exclude=README.md --exclude=readme.md
+            --exclude=*.sh --exclude=*.bak
