@@ -2,64 +2,71 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>BADGE.TEAM OTA SERVER</title>
+<title>Badge.team OTA</title>
 <style>
 html, body {
 	background-color: #FFFFFF;
 	color: #000000;
-	font-family: Open Sans, Arial, Helvetica, sans-serif;
-	text-align: center;
+}
+:root {
+	--theme-hue: 16.4;
+}
+
+body {
+	margin: 0;
+	width: 100vw;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: Segoe UI, Open Sans, Arial, Helvetica, sans-serif;
 }
 
 .container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
 
 .container a {
 	color: #000000;
+}
+.container a:not(:hover) {
 	text-decoration: none;
 }
 
-.container a:hover {
-	color: #000000;
-	text-decoration: underline;
-}
-
-.firmware {
-	margin-left:auto; 
-	margin-right:auto;
+table {
 	border-collapse: collapse;
-	
-}
-.firmware td, .firmware th {
-	border: 1px solid #ddd;
-	padding: 8px;
 }
 
-.firmware th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #E8480C;
-  color: white;
+table th, table td {
+	border: 1px solid #ddd;
+}
+table tr:nth-child(2n+1) {
+	background-color: hsl(var(--theme-hue), 90%, 97%);
+}
+table th {
+	padding: 0.6em 0.75em;
+	color: white;
+	background-color: hsl(var(--theme-hue), 90%, 48%);
+}
+table td {
+	padding: 0.5em 0.6em;
+	text-align: center;
 }
 
 </style>
 </head>
 <body>
 <div class="container">
-	<img src="micropython.jpg" width="150px" /><br />
-	<h1>BADGE.TEAM Over-The-Air update service</h1>
-	<table class="firmware">
+	<img src="micropython.jpg" width="150px" /><br/>
+	<h1>Badge.team Over-The-Air update service</h1>
+	<table>
 		<tr>
 			<th>Badge</th>
-			<th>Firmware<br /><small>release</small></th>
-			<th>Firmware<br /><small>development</small></th>
+			<th>Firmware<br/><small>release</small></th>
+			<th>Firmware<br/><small>development</small></th>
 			<th>Bootloader</th>
 			<th>Partition&nbsp;table</th>
 		</tr>
@@ -112,8 +119,24 @@ html, body {
 			<td><a href="bootloader/esp32_platform_bl_idf3_2.bin">IDF&nbsp;v3.2</a></td>
 			<td><i>Not&nbsp;available</i></td>
 		</tr>
+		<tr>
+			<td>MCH2022</td>
+			<td><a href="mch2022.bin">
+				v1.5.1<br/><small>15-08-2022</small>
+			</a></td>
+			<td><a href="mch2022_dev.bin">
+				v2.0.3<br/><small>25-03-2023</small>
+			</a></td>
+			<td><a href="bootloader/mch2022_bootloader.bin">IDF v4.4.1</a></td>
+			<td><a href="partitions/mch2022_16MB.bin">16MB</a></td>
+		</tr>
 	</table>
-	<br /><br />
+	<br/>
+	<br/>
 </div>
+
+<footer>
+	<a href="https://github.com/badgeteam/ota">Source</a>
+</footer>
 </body>
 </html>
