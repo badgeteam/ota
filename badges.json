@@ -99,21 +99,21 @@
     {
         "id": "mch2022",
         "name": "MCH2022",
-        "url": "https://github.com/badgeteam/mch2022-project",
+        "url": "https://github.com/badgeteam/mch2022-project#readme",
         "bootloader": {
             "file": "mch2022_bootloader.bin",
-            "name": "IDF v4.4.1"
+            "name": "IDF v4.4"
         },
         "flash": {
             "size": "16MB"
         },
         "version": {
             "name": "v2.0.5",
-            "date": "09-04-2022"
+            "date": "09-04-2023"
         },
         "version_dev": {
             "name": "v2.0.5",
-            "date": "09-04-2022"
+            "date": "09-04-2023"
         }
     }
 ]
