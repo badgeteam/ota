@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Badge.team OTA</title>
+<style>
+html, body {
+	background-color: #FFFFFF;
+	color: #000000;
+}
+:root {
+	--theme-hue: 16.4;
+}
+
+body {
+	margin: 0;
+	width: 100vw;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: Segoe UI, Open Sans, Arial, Helvetica, sans-serif;
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.title {
+	font-weight: 600;
+}
+.subtitle {
+	font-weight: 500;
+}
+.title + .subtitle {
+	margin-top: -0.5rem;
+}
+
+a {
+	color: #000000;
+	font-size: 1em;
+}
+a:not(:hover) {
+	text-decoration: none;
+}
+
+code {
+	font-size: 1.25em;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table th, table td {
+	border: 1px solid #ddd;
+}
+table tr:nth-child(2n+1) {
+	background-color: hsl(var(--theme-hue), 90%, 97%);
+}
+table th {
+	padding: 0.6em 0.75em;
+	color: white;
+	background-color: hsl(var(--theme-hue), 90%, 48%);
+}
+table .subheadings th {
+	font-size: 0.75em;
+}
+table td {
+	padding: 0.4em 0.6em;
+	text-align: center;
+}
+
+td summary {
+	cursor: pointer;
+	user-select: none;
+}
+
+</style>
+</head>
+
+<body>
+<div class="container">
+	<img src="micropython.jpg" width="150px" />
+	<h1 class="title">Badge.team OTA</h1>
+	<h2 class="subtitle">Over-The-Air update service</h2>
+	<table>
+		<tr><td>
+			⚠️ table is supposed to be generated with <code>make_index.sh</code> ⚠️
+		</td></tr>
+	</table>
+	<br/>
+	<br/>
+</div>
+
+<footer>
+	Source: <a href="https://github.com/badgeteam/ota"><code>badgeteam/ota</code> on GitHub</a>
+</footer>
+</body>
+</html>
