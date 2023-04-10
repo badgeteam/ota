@@ -24,11 +24,6 @@ debug_files=$(
 	}) | add'
 )
 
-# TODO: try to extract version info from .bin files?
-# [[ $(head -c 53 mch2022.bin | tail -c 5) =~ [0-9]\.[0-9]\.[0-9] ]] && echo 'version found' || echo 'no version'
-# grep --text --only-matching -P '[^\d]\d\.\d\.\d[^\d]' mch2022.bin | head -1
-
-
 table_header="
 		<tr>
 			<th rowspan=2>Badge</th>

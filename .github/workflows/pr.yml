@@ -1,0 +1,37 @@
+name: Pull request
+run-name: "Checks: #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}"
+
+on:
+  pull_request:
+  merge_group:
+
+jobs:
+  check-version-consistency:
+    name: Check version consistency
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+
+      - id: check
+        name: Run version check
+        run: |
+          ./check_versions.sh | tee check.log
+
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "CHECK_OUTPUT<<$EOF" >> $GITHUB_OUTPUT
+          cat check.log >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+
+      - name: Generate report
+        # run even when check fails, but not if job is canceled
+        if: success() || failure()
+        run: |
+          cat << MarkdownHERE >> $GITHUB_STEP_SUMMARY
+          # Version consistency check ${{ steps.check.outcome == 'success' && '✅' || '❌' }}
+
+          \`\`\`
+          ${{ steps.check.outputs.CHECK_OUTPUT }}
+          \`\`\`
+
+          MarkdownHERE
