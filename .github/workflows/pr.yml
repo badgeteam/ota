@@ -16,22 +16,26 @@ jobs:
       - id: check
         name: Run version check
         run: |
-          ./check_versions.sh | tee check.log
+          check_log=$(./check_versions.sh)
+          failed_checks=$?
 
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "CHECK_OUTPUT<<$EOF" >> $GITHUB_OUTPUT
-          cat check.log >> $GITHUB_OUTPUT
-          echo "$EOF" >> $GITHUB_OUTPUT
+          echo "$check_log"         >> $GITHUB_OUTPUT
+          echo "$EOF"               >> $GITHUB_OUTPUT
+          exit $failed_checks
 
       - name: Generate report
         # run even when check fails, but not if job is canceled
         if: success() || failure()
         run: |
-          cat << MarkdownHERE >> $GITHUB_STEP_SUMMARY
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+
+          cat << $EOF >> $GITHUB_STEP_SUMMARY
           # Version consistency check ${{ steps.check.outcome == 'success' && '✅' || '❌' }}
 
           \`\`\`
           ${{ steps.check.outputs.CHECK_OUTPUT }}
           \`\`\`
 
-          MarkdownHERE
+          $EOF
