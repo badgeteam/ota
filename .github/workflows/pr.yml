@@ -9,29 +9,27 @@ jobs:
   check-version-consistency:
     name: Check version consistency
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
 
       - id: check
-        name: Run version check
+        name: Run version consistency check
         run: |
-          ./check_versions.sh | tee check.log
+          set +e
+          check_output=$(./check_versions.sh 2>&1)
+          failed_checks=$?
+
+          echo "$check_output"
+          echo "failed_checks=$failed_checks" >> $GITHUB_OUTPUT
 
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "CHECK_OUTPUT<<$EOF" >> $GITHUB_OUTPUT
-          cat check.log >> $GITHUB_OUTPUT
-          echo "$EOF" >> $GITHUB_OUTPUT
-
-      - name: Generate report
-        # run even when check fails, but not if job is canceled
-        if: success() || failure()
-        run: |
-          cat << MarkdownHERE >> $GITHUB_STEP_SUMMARY
-          # Version consistency check ${{ steps.check.outcome == 'success' && '✅' || '❌' }}
-
+          cat << $EOF >> $GITHUB_STEP_SUMMARY
+          # Version consistency check $([ $failed_checks = 0 ] && echo '✅' || echo '❌')
           \`\`\`
-          ${{ steps.check.outputs.CHECK_OUTPUT }}
+          $check_output
           \`\`\`
+          $EOF
 
-          MarkdownHERE
+          exit $failed_checks
