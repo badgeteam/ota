@@ -3,9 +3,10 @@ This repository contains the firmware binaries for the badges we support.
 It is published as the webroot of https://ota.badge.team
 
 ## Maintainers
- - Renze Nicolai: SHA2017, HackerHotel 2019, Disobey 2019, Troopers 2019
+ - Renze Nicolai: SHA2017, HackerHotel 2019, Disobey 2019, Troopers 2019, MCH2022
  - Heikki Juva: Disobey 2020
- - Tom Clement: CampZone 2019
+ - Tom Clement: CampZone 2019, CampZone 2020, Pixel
+ - Reinier van der Leer ([@Pwuts](https://github.com/Pwuts)): DevOps
 
 ## Firmware release hook
 The [release hook](.github/workflows/release-hook.yml) workflow is an easy way
@@ -46,7 +47,9 @@ hook from a workflow in the firmware repository.
 [matching-elf]: https://github.com/badgeteam/ota/blob/d71e22cc77aef103044563d0b4eb60ead8712fd5/.github/workflows/release-hook.yml#L98
 [index]: https://ota.badge.team
 
-#### Example: [mch2022-firmware-esp32 > cd-release.yml](https://github.com/badgeteam/mch2022-firmware-esp32/blob/58e85c1e44e29772cdf1a9971ba29ed10c02c01d/.github/workflows/cd-release.yml#L30-L51)
+#### Example
+[**cd-release.yml**](https://github.com/badgeteam/mch2022-firmware-esp32/blob/58e85c1e44e29772cdf1a9971ba29ed10c02c01d/.github/workflows/cd-release.yml#L30-L51)
+in [badgeteam/mch2022-firmware-esp32](https://github.com/badgeteam/mch2022-firmware-esp32)
 
 ## `badges.json` schema
 All properties have `string` values.
