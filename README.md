@@ -20,6 +20,9 @@ Display name of the badge.
 ### `.<i>.url` &ensp; *optional*
 URL to a website or webpage about this badge.
 
+### `.<i>.firmware_repo` &ensp; *optional*
+Badge firmware GitHub repository. Used in the firmware release hook.
+
 ### `.<i>.version`
 If not set, an attempt will be made to extract a date stamp and version info from the latest `.bin` file.
 
@@ -30,7 +33,7 @@ Date of the latest version.
 Name of the latest version, e.g. `v1.4.9` or `r5`.
 
 ### `.<i>.version_dev` &ensp; *optional*
-Same as `.<i>.version` but for development/nightly builds.
+Same as `.<i>.version` but for development builds.
 
 ### `.<i>.bootloader`
 

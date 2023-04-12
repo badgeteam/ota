@@ -1,0 +1,140 @@
+name: Firmware release hook
+run-name: > # "MCH2022 firmware dev release v1.2.3"
+  ${{ github.event.client_payload.device_name }} firmware
+  ${{ github.event.client_payload.channel != 'release' && github.event.client_payload.channel || '' }}
+  release ${{ github.event.client_payload.tag }}
+
+on:
+  repository_dispatch:
+    types: [firmware-release]
+
+jobs:
+  pull-and-pr:
+    name: Get new ${{ github.event.client_payload.device_name }} firmware & create PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Check payload
+        id: input
+        run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          payload=$(
+          cat << $EOF
+          ${{ toJson(github.event.client_payload) }}
+          $EOF
+          );
+
+          valid_payload=$(jq -r 'select(
+            (.device_id   | type == "string") and
+            (.device_name | type == "string") and
+            (.tag     | type == "string") and
+            (.channel | type == "string") and
+            (.fw_main | type == "string")
+          )' <<< $payload);
+
+          [ -n "$valid_payload" ] || exit 1
+
+          device_id="${{ github.event.client_payload.device_id }}"
+          badge_json=$(jq -r --arg id "$device_id" '.[] | select(.id == $id)' badges.json)
+          if [ -z "$badge_json" ]; then
+            echo "No entry for device '$device_id' in badges.json" >&2
+            exit 1
+          fi
+
+          # output checked payload fields
+          echo "tag=${{ github.event.client_payload.tag }}" >> $GITHUB_OUTPUT
+          echo "repo=$(jq -r '.firmware_repo' <<< $badge_json)" >> $GITHUB_OUTPUT
+          echo "channel=${{ github.event.client_payload.channel }}" >> $GITHUB_OUTPUT
+          echo "fw_main=${{ github.event.client_payload.fw_main }}" >> $GITHUB_OUTPUT
+          echo "device_id=${{ github.event.client_payload.device_id }}" >> $GITHUB_OUTPUT
+          echo "device_name=${{ github.event.client_payload.device_name }}" >> $GITHUB_OUTPUT
+
+      - name: Get release info
+        id: release_info
+        run: |
+          release_info=$(
+            GITHUB_TOKEN='${{ secrets.GITHUB_TOKEN }}'
+            gh release
+              --repo "${{ steps.input.outputs.repo }}"
+              view "${{ steps.input.outputs.tag }}"
+          );
+          echo "Release info:\n$release_info";
+
+          release_header=$(awk '/[a-z]+:/' <<< $release_info)
+          release_assets=$(grep "^asset:" <<< $release_header | cut -f 2-)
+          release_description=$(awk '/--/,0' <<< $release_info | tail +2)
+
+          # output info fields
+          for label in 'title' 'tag' 'draft' 'prerelease' 'author' 'created' 'published' 'url'; do
+            echo "$label=$(grep "^${label}:" <<< $release_header | cut -f 2-)" >> $GITHUB_OUTPUT;
+          done
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "assets<<$EOF\n$release_assets\n$EOF"           >> $GITHUB_OUTPUT
+          echo "description<<$EOF\n$release_description\n$EOF" >> $GITHUB_OUTPUT
+
+      - name: Fetch & Integrate ${{ steps.input.outputs.device_name }} release
+        run: |
+          version="${{ steps.input.outputs.tag }}"
+          channel="${{ steps.input.outputs.channel }}"
+          main_bin="${{ steps.input.outputs.fw_main }}"
+          device_id="${{ steps.input.outputs.device_id }}"
+          device_name="${{ steps.input.outputs.device_name }}"
+          release_assets="${{ steps.release_info.outputs.assets }}"
+          echo "Adopting $device_name firmware version $version to channel '$channel'";
+
+          if ! grep -oq "^${main_bin}" <<< "$release_assets"; then
+            echo "❌ no asset '$main_bin' on release";
+            exit 1;
+          fi
+          gh release --repo "${{ steps.input.outputs.repo }}" \
+            download "$version" \
+            -p $main_bin \
+            -O $([ $channel == 'release' ] && echo "${device_id}.bin" || echo "${device_id}_${channel}.bin") \
+            --clobber
+
+          main_elf=${main_bin/%.bin/.elf}
+          if ! grep -oq "^${main_elf}" <<< "$release_assets"; then
+            echo "⚠️ no asset '$main_elf' on release";
+          else
+            gh release --repo "${{ steps.input.outputs.repo }}" \
+              download "$version" \
+              -p "$main_elf" \
+              -O "${device_id}-${version}.elf" \
+              --clobber
+          fi
+
+          release_url="${{ steps.release_info.outputs.url }}"
+
+          # update badges.json
+          jq -r \
+            --arg channel $channel \
+            --arg version $version \
+            --arg date    $(date -I) \
+            --arg url     $release_url \
+            'map(
+              select(.id == "mch2022")
+              | if $channel == "release" then .version else .["version_" + $channel] end = {
+                name: $version,
+                date: $date,
+                url: $url
+              }
+            )' badges.json | tee badges.json.new && mv badges.json.new badges.json
+
+      - id: create_pr
+        name: Create PR
+        uses: peter-evans/create-pull-request@v5
+        env:
+          message: >
+            ${{ steps.input.outputs.device_name }} firmware
+            ${{ steps.input.outputs.channel != 'release' && steps.input.outputs.channel || '' }}
+            release ${{ steps.input.outputs.tag }}
+        with:
+          branch:         ${{ steps.input.outputs.device_id }}/${{ steps.input.outputs.channel }}
+          title:          ${{ env.message }}
+          commit-message: ${{ env.message }}
+          assignees:      ${{ steps.release_info.outputs.author }}
+          body:           ${{ steps.release_info.outputs.description }}
+          delete-branch:  true
