@@ -110,12 +110,13 @@ jobs:
 
           # update badges.json
           jq -r \
+            --arg id      $device_id \
             --arg channel $channel \
             --arg version $version \
             --arg date    $(date -I) \
             --arg url     $release_url \
             'map(
-              select(.id == "mch2022")
+              select(.id == $id)
               | if $channel == "release" then .version else .["version_" + $channel] end = {
                 name: $version,
                 date: $date,
