@@ -33,7 +33,7 @@ jobs:
             (.tag     | type == "string") and
             (.channel | type == "string") and
             (.fw_main | type == "string")
-          )' <<< $payload);
+          )' <<< "$payload");
 
           [ -n "$valid_payload" ] || exit 1
 
@@ -46,7 +46,7 @@ jobs:
 
           # output checked payload fields
           echo "tag=${{ github.event.client_payload.tag }}" >> $GITHUB_OUTPUT
-          echo "repo=$(jq -r '.firmware_repo' <<< $badge_json)" >> $GITHUB_OUTPUT
+          echo "repo=$(jq -r '.firmware_repo' <<< "$badge_json")" >> $GITHUB_OUTPUT
           echo "channel=${{ github.event.client_payload.channel }}" >> $GITHUB_OUTPUT
           echo "fw_main=${{ github.event.client_payload.fw_main }}" >> $GITHUB_OUTPUT
           echo "device_id=${{ github.event.client_payload.device_id }}" >> $GITHUB_OUTPUT
@@ -56,22 +56,28 @@ jobs:
         id: release_info
         run: |
           release_info=$(
-            GITHUB_TOKEN='${{ secrets.GITHUB_TOKEN }}'
-            gh release --repo "${{ steps.input.outputs.repo }}" view "${{ steps.input.outputs.tag }}"
+            gh release \
+              --repo "${{ steps.input.outputs.repo }}" \
+              view "${{ steps.input.outputs.tag }}"
           );
-          echo "Release info:\n$release_info";
+          echo "Release info:";
+          echo "$release_info";
 
-          release_header=$(awk '/[a-z]+:/' <<< $release_info)
-          release_assets=$(grep "^asset:" <<< $release_header | cut -f 2-)
-          release_description=$(awk '/--/,0' <<< $release_info | tail +2)
+          release_header=$(awk '/[a-z]+:/' <<< "$release_info")
+          release_assets=$(grep "^asset:" <<< "$release_header" | cut -f 2-)
+          release_description=$(awk '/--/,0' <<< "$release_info" | tail +2)
 
           # output info fields
           for label in 'title' 'tag' 'draft' 'prerelease' 'author' 'created' 'published' 'url'; do
-            echo "$label=$(grep "^${label}:" <<< $release_header | cut -f 2-)" >> $GITHUB_OUTPUT;
+            echo "$label=$(grep "^${label}:" <<< "$release_header" | cut -f 2-)" >> $GITHUB_OUTPUT;
           done
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "assets<<$EOF\n$release_assets\n$EOF"           >> $GITHUB_OUTPUT
-          echo "description<<$EOF\n$release_description\n$EOF" >> $GITHUB_OUTPUT
+          echo "assets<<$EOF"     >> $GITHUB_OUTPUT
+          echo "$release_assets"  >> $GITHUB_OUTPUT
+          echo "$EOF"             >> $GITHUB_OUTPUT
+          echo "description<<$EOF"    >> $GITHUB_OUTPUT
+          echo "$release_description" >> $GITHUB_OUTPUT
+          echo "$EOF"                 >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -125,6 +131,7 @@ jobs:
             )' badges.json | tee badges.json.new && mv badges.json.new badges.json
         env:
           GH_TOKEN: ${{ github.token }}
+
       - id: create_pr
         name: Create PR
         uses: peter-evans/create-pull-request@v5
