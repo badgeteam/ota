@@ -109,8 +109,8 @@
         },
         "firmware_repo": "badgeteam/mch2022-firmware-esp32",
         "version": {
-            "name": "v2.0.5",
-            "date": "09-04-2023"
+            "name": "v2.0.6",
+            "date": "02-05-2023"
         },
         "version_dev": {
             "name": "v2.0.5",
