@@ -57,9 +57,7 @@ jobs:
         run: |
           release_info=$(
             GITHUB_TOKEN='${{ secrets.GITHUB_TOKEN }}'
-            gh release
-              --repo "${{ steps.input.outputs.repo }}"
-              view "${{ steps.input.outputs.tag }}"
+            gh release --repo "${{ steps.input.outputs.repo }}" view "${{ steps.input.outputs.tag }}"
           );
           echo "Release info:\n$release_info";
 
