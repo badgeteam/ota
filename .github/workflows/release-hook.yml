@@ -72,6 +72,8 @@ jobs:
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "assets<<$EOF\n$release_assets\n$EOF"           >> $GITHUB_OUTPUT
           echo "description<<$EOF\n$release_description\n$EOF" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Fetch & Integrate ${{ steps.input.outputs.device_name }} release
         run: |
@@ -121,7 +123,8 @@ jobs:
                 url: $url
               }
             )' badges.json | tee badges.json.new && mv badges.json.new badges.json
-
+        env:
+          GH_TOKEN: ${{ github.token }}
       - id: create_pr
         name: Create PR
         uses: peter-evans/create-pull-request@v5
