@@ -1,24 +1,121 @@
 [
-  {
-    "id": "mch2022",
-    "name": "MCH2022",
-    "url": "https://github.com/badgeteam/mch2022-project#readme",
-    "bootloader": {
-      "file": "mch2022_bootloader.bin",
-      "name": "IDF v4.4"
+    {
+        "id": "sha2017",
+        "name": "SHA2017",
+        "bootloader": {
+            "file": "esp32_platform_bl_idf3_2.bin",
+            "name": "IDF v3.2"
+        },
+        "flash": {
+            "size": "16MB"
+        },
+        "version": {
+            "date": "14-08-2021",
+            "name": "r1"
+        }
     },
-    "flash": {
-      "size": "16MB"
+    {
+        "id": "hackerhotel2019",
+        "name": "HackerHotel 2019",
+        "bootloader": {
+            "file": "esp32_platform_bl_idf3_2.bin",
+            "name": "IDF v3.2"
+        },
+        "flash": {
+            "size": "16MB"
+        },
+        "version": {
+            "date": "14-08-2021",
+            "name": "r1"
+        }
     },
-    "firmware_repo": "badgeteam/mch2022-firmware-esp32",
-    "version": {
-      "name": "v2.0.5",
-      "date": "09-04-2023"
+    {
+        "id": "disobey2019",
+        "name": "Disobey 2019",
+        "bootloader": {
+            "file": "esp32_platform_bl_idf3_2.bin",
+            "name": "IDF v3.2"
+        },
+        "flash": {
+            "size": "16MB"
+        },
+        "version": {
+            "date": "14-08-2021",
+            "name": "r1"
+        }
     },
-    "version_dev": {
-      "name": "v2.0.9",
-      "date": "2023-05-06",
-      "url": "https://github.com/badgeteam/mch2022-firmware-esp32/releases/tag/v2.0.9"
+    {
+        "id": "troopers2019",
+        "name": "Troopers 2019",
+        "bootloader": {
+            "file": "esp32_platform_bl_idf3_2.bin",
+            "name": "IDF v3.2"
+        },
+        "flash": {
+            "size": "4MB",
+            "partition_table": "generic_4MB.bin"
+        },
+        "version": {
+            "date": "03-01-2020",
+            "name": "r1"
+        }
+    },
+    {
+        "id": "campzone2019",
+        "name": "CampZone 2019",
+        "bootloader": {
+            "file": "esp32_platform_bl_idf3_2.bin",
+            "name": "IDF v3.2"
+        },
+        "version": {
+            "date": "23-02-2020",
+            "name": "r25"
+        }
+    },
+    {
+        "id": "disobey2020",
+        "name": "Disobey 2020",
+        "bootloader": {
+            "file": "esp32_platform_bl_idf3_2.bin",
+            "name": "IDF v3.2"
+        },
+        "version": {
+            "date": "14-08-2021",
+            "name": "r1"
+        }
+    },
+    {
+        "id": "campzone2020",
+        "name": "CampZone 2020",
+        "bootloader": {
+            "file": "esp32_platform_bl_idf3_2.bin",
+            "name": "IDF v3.2"
+        },
+        "version": {
+            "date": "08-07-2020",
+            "name": "r1"
+        }
+    },
+    {
+        "id": "mch2022",
+        "name": "MCH2022",
+        "url": "https://github.com/badgeteam/mch2022-project#readme",
+        "bootloader": {
+            "file": "mch2022_bootloader.bin",
+            "name": "IDF v4.4"
+        },
+        "flash": {
+            "size": "16MB"
+        },
+        "firmware_repo": "badgeteam/mch2022-firmware-esp32",
+        "version": {
+            "name": "v2.0.5",
+            "date": "09-04-2023"
+        },
+        "version_dev": {
+            "name": "v2.0.9",
+            "date": "2023-05-06",
+            "url": "https://github.com/badgeteam/mch2022-firmware-esp32/releases/tag/v2.0.9"
+        }
     }
-  }
 ]

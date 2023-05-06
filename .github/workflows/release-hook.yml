@@ -122,12 +122,13 @@ jobs:
             --arg date    $(date -I) \
             --arg url     $release_url \
             'map(
-              select(.id == $id)
-              | if $channel == "release" then .version else .["version_" + $channel] end = {
-                name: $version,
-                date: $date,
-                url: $url
-              }
+              select(.id == $id) |= (
+                if $channel == "release" then .version else .["version_" + $channel] end = {
+                  name: $version,
+                  date: $date,
+                  url: $url
+                }
+              )
             )' badges.json | tee badges.json.new && mv badges.json.new badges.json
         env:
           GH_TOKEN: ${{ github.token }}
