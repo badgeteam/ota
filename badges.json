@@ -131,9 +131,9 @@
     },
     "firmware_repo": "badgeteam/troopers-2023-firmware",
     "version": {
-      "name": "0.0.3",
+      "name": "0.0.4",
       "date": "2023-06-23",
-      "url": "https://github.com/badgeteam/troopers-2023-firmware/releases/tag/0.0.3"
+      "url": "https://github.com/badgeteam/troopers-2023-firmware/releases/tag/0.0.4"
     },
     "version_dev": {
       "name": "v2.0.9",
