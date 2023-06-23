@@ -117,5 +117,27 @@
             "date": "2023-05-06",
             "url": "https://github.com/badgeteam/mch2022-firmware-esp32/releases/tag/v2.0.9"
         }
+    },
+    {
+        "id": "troopers23",
+        "name": "Troopers 2023",
+        "url": "https://github.com/badgeteam/troopers-2023-firmware#readme",
+        "bootloader": {
+            "file": "mch2022_bootloader.bin",
+            "name": "IDF v4.4"
+        },
+        "flash": {
+            "size": "16MB"
+        },
+        "firmware_repo": "badgeteam/troopers-2023-firmware",
+        "version": {
+            "name": "v0.0.0",
+            "date": "2023-06-23"
+        },
+        "version_dev": {
+            "name": "v2.0.9",
+            "date": "2023-06-23",
+            "url": ""
+        }
     }
 ]
