@@ -140,9 +140,8 @@
       "date": "2023-10-27",
       "url": "https://github.com/badgeteam/troopers-2023-firmware/releases/tag/1.1.1"
     }
-  }
-,
-{
+  },
+  {
     "id": "hackerhotel2024",
     "name": "Hackerhotel 2024",
     "url": "https://github.com/badgeteam/hackerhotel-2024-firmware-esp32c6#readme",
@@ -155,9 +154,9 @@
     },
     "firmware_repo": "badgeteam/hackerhotel-2024-firmware-esp32c6",
     "version": {
-      "name": "1.0.0",
-      "date": "2024-01-01",
-      "url": "https://github.com/badgeteam/hackerhotel-2024-firmware-esp32c6/releases/tag/1.0.0"
+      "name": "v0.0.2",
+      "date": "2024-01-20",
+      "url": "https://github.com/badgeteam/hackerhotel-2024-firmware-esp32c6/releases/tag/v0.0.2"
     },
     "version_dev": {
       "name": "1.0.0",
