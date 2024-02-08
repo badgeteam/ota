@@ -154,9 +154,9 @@
     },
     "firmware_repo": "badgeteam/hackerhotel-2024-firmware-esp32c6",
     "version": {
-      "name": "v0.0.2",
-      "date": "2024-01-20",
-      "url": "https://github.com/badgeteam/hackerhotel-2024-firmware-esp32c6/releases/tag/v0.0.2"
+      "name": "v0.0.6",
+      "date": "2024-02-08",
+      "url": "https://github.com/badgeteam/hackerhotel-2024-firmware-esp32c6/releases/tag/v0.0.6"
     },
     "version_dev": {
       "name": "v0.0.5",
