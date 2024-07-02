@@ -177,9 +177,9 @@
     },
     "firmware_repo": "badgeteam/troopers24-firmware",
     "version": {
-      "name": "1.0.0",
-      "date": "2024-06-28",
-      "url": "https://github.com/badgeteam/troopers24-firmware/releases/tag/1.0.0"
+      "name": "1.1.0",
+      "date": "2024-07-01",
+      "url": "https://github.com/badgeteam/troopers24-firmware/releases/tag/1.1.0"
     },
     "version_dev": {
       "name": "1.0.0",
