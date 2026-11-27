@@ -2,12 +2,6 @@
 This repository contains the firmware binaries for the badges we support.
 It is published as the webroot of https://ota.badge.team
 
-## Maintainers
- - Renze Nicolai: SHA2017, HackerHotel 2019, Disobey 2019, Troopers 2019, MCH2022
- - Heikki Juva: Disobey 2020
- - Unmaintained: CampZone 2019, CampZone 2020, Pixel
- - Reinier van der Leer ([@Pwuts](https://github.com/Pwuts)): DevOps
-
 ## Firmware release hook
 The [release hook](.github/workflows/release-hook.yml) workflow is an easy way
 to push firmware releases to this OTA service. It can be used by calling the
