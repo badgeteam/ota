@@ -5,7 +5,7 @@ It is published as the webroot of https://ota.badge.team
 ## Maintainers
  - Renze Nicolai: SHA2017, HackerHotel 2019, Disobey 2019, Troopers 2019, MCH2022
  - Heikki Juva: Disobey 2020
- - Tom Clement: CampZone 2019, CampZone 2020, Pixel
+ - Unmaintained: CampZone 2019, CampZone 2020, Pixel
  - Reinier van der Leer ([@Pwuts](https://github.com/Pwuts)): DevOps
 
 ## Firmware release hook
