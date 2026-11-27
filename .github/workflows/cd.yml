@@ -8,6 +8,7 @@ on:
       - '.github/**'
       - '!.github/workflows/cd.yml' # this workflow
       - README.md
+  workflow_dispatch:
 
 jobs:
   upload:
